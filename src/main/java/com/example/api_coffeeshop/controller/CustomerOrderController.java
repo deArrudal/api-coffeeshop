@@ -29,7 +29,7 @@ public class CustomerOrderController {
     }
 
     @GetMapping(value = "/readCustomerOrder/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public CustomerOrder readCustomerOrder(@PathVariable Long id) {
+    public CustomerOrder readCustomerOrder(@PathVariable("id") Long id) {
         return customerOrderService.readCustomerOrder(id);
     }
 
@@ -39,7 +39,7 @@ public class CustomerOrderController {
     }
 
     @DeleteMapping(value = "/deleteCustomerOrder/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public CustomerOrder deleteCustomerOrder(@PathVariable Long id) {
+    public CustomerOrder deleteCustomerOrder(@PathVariable("id") Long id) {
         return customerOrderService.deleteCustomerOrder(id);
     }
 

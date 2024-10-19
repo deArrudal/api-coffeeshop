@@ -29,7 +29,7 @@ public class CoffeeController {
     }
 
     @GetMapping(value = "/readCoffee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Coffee readCoffee(@PathVariable Long id) {
+    public Coffee readCoffee(@PathVariable("id") Long id) {
         return coffeeService.readCoffee(id);
     }
 
@@ -39,7 +39,7 @@ public class CoffeeController {
     }
 
     @DeleteMapping(value = "/deleteCoffee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Coffee deleteCoffee(@PathVariable Long id) {
+    public Coffee deleteCoffee(@PathVariable("id") Long id) {
         return coffeeService.deleteCoffee(id);
     }
 
