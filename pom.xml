@@ -59,12 +59,6 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-   			<groupId>org.mapstruct</groupId>
-   			<artifactId>mapstruct</artifactId>
-   			<version>1.1.0.Final</version>
-   			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -80,22 +74,6 @@
 						</exclude>
 					</excludes>
 				</configuration>
-			</plugin>
-			<plugin>
-  				<artifactId>maven-compiler-plugin</artifactId>
-  				<version>3.5.1</version>
-  				<configuration>
-    				<encoding>UTF-8</encoding>
-    				<source>${java.version}</source>
-    				<target>${java.version}</target>
-    				<annotationProcessorPaths>
-      					<path>
-        					<groupId>org.mapstruct</groupId>
-        					<artifactId>mapstruct-processor</artifactId>
-        					<version>${org.mapstruct.version}</version>
-      					</path>
-    				</annotationProcessorPaths>
-  				</configuration>
 			</plugin>
 		</plugins>
 	</build>

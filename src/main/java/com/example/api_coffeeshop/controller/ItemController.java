@@ -29,7 +29,7 @@ public class ItemController {
     }
 
     @GetMapping(value = "/readItem/{customerOrderId}/{coffeeId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Item readItem(@PathVariable("customerOrderId") Long customerOrderId, @PathVariable("coffeId") Long coffeeId) {
+    public Item readItem(@PathVariable("customerOrderId") Long customerOrderId, @PathVariable("coffeeId") Long coffeeId) {
         return itemService.readItem(customerOrderId, coffeeId);
     }
 
@@ -39,7 +39,7 @@ public class ItemController {
     }
 
     @DeleteMapping(value = "/deleteItem/{customerOrderId}/{coffeeId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Item deleteItem(@PathVariable("customerOrderId") Long customerOrderId, @PathVariable("coffeId") Long coffeeId) {
+    public Item deleteItem(@PathVariable("customerOrderId") Long customerOrderId, @PathVariable("coffeeId") Long coffeeId) {
         return itemService.deleteItem(customerOrderId, coffeeId);
     }
 
