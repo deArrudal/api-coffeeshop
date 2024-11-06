@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.api_coffeeshop.item.Item;
-import com.example.api_coffeeshop.item.ItemService;
+import com.example.api_coffeeshop.model.Item;
+import com.example.api_coffeeshop.service.ItemService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

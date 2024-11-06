@@ -1,11 +1,12 @@
-package com.example.api_coffeeshop.customerorder;
+package com.example.api_coffeeshop.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.api_coffeeshop.item.ItemService;
+import com.example.api_coffeeshop.model.CustomerOrder;
+import com.example.api_coffeeshop.repository.CustomerOrderRepository;
 
 @Service
 public class CustomerOrderService {

@@ -1,14 +1,17 @@
-package com.example.api_coffeeshop.item;
+package com.example.api_coffeeshop.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.api_coffeeshop.coffee.Coffee;
-import com.example.api_coffeeshop.coffee.CoffeeRepository;
-import com.example.api_coffeeshop.customerorder.CustomerOrder;
-import com.example.api_coffeeshop.customerorder.CustomerOrderRepository;
+import com.example.api_coffeeshop.model.Coffee;
+import com.example.api_coffeeshop.model.CustomerOrder;
+import com.example.api_coffeeshop.model.Item;
+import com.example.api_coffeeshop.model.ItemId;
+import com.example.api_coffeeshop.repository.CoffeeRepository;
+import com.example.api_coffeeshop.repository.CustomerOrderRepository;
+import com.example.api_coffeeshop.repository.ItemRepository;
 
 @Service
 public class ItemService {

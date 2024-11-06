@@ -1,4 +1,4 @@
-package com.example.api_coffeeshop.item;
+package com.example.api_coffeeshop.model;
 
 import java.io.Serializable;
 

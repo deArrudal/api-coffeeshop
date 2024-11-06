@@ -1,11 +1,8 @@
-package com.example.api_coffeeshop.item;
+package com.example.api_coffeeshop.model;
 
 import java.io.Serializable;
 
 import org.hibernate.annotations.ColumnDefault;
-
-import com.example.api_coffeeshop.coffee.Coffee;
-import com.example.api_coffeeshop.customerorder.CustomerOrder;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
