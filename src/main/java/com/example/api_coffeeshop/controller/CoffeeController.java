@@ -2,13 +2,16 @@ package com.example.api_coffeeshop.controller;
 
 import java.util.List;
 
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.api_coffeeshop.model.Coffee;
 import com.example.api_coffeeshop.service.CoffeeService;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,34 +20,47 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/*
+POST /coffees: Create a coffee.
+GET /coffees: Get all coffees.
+GET /coffees/{id}: Get a coffee by its ID.
+PUT /coffees/{id}: Update a coffee by its ID.
+DELETE /coffees/{id}: Delete a coffee by its ID.
+ */
+
 @RestController
-@RequestMapping("/coffee")
+@RequestMapping("/coffees")
 public class CoffeeController {
     @Autowired
     private CoffeeService coffeeService;
 
-    @PostMapping(value = "/createCoffee", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Coffee createCoffee(@RequestBody Coffee coffee) {
-        return coffeeService.createCoffee(coffee);
+    @PostMapping
+    public ResponseEntity<Coffee> createCoffee(@RequestBody @Valid Coffee coffee) {
+        Coffee savedCoffee = coffeeService.createCoffee(coffee);
+        return new ResponseEntity<>(savedCoffee, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/readCoffee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Coffee readCoffee(@PathVariable("id") Long id) {
-        return coffeeService.readCoffee(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Coffee> readCoffee(@PathVariable("id") Long id) {
+        Coffee readCoffee = coffeeService.readCoffee(id);
+        return new ResponseEntity<>(readCoffee, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/updateCoffee", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Coffee updateCoffee(@RequestBody Coffee coffee) {
-        return coffeeService.updateCoffee(coffee);
+    @PutMapping("/{id}")
+    public ResponseEntity<Coffee> updateCoffee(@PathVariable("id") Long id, @RequestBody @Valid Coffee coffee) {
+        Coffee updatedCoffee = coffeeService.updateCoffee(id, coffee);
+        return new ResponseEntity<>(updatedCoffee, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/deleteCoffee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Coffee deleteCoffee(@PathVariable("id") Long id) {
-        return coffeeService.deleteCoffee(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCoffee(@PathVariable("id") Long id) {
+        coffeeService.deleteCoffee(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(value = "/readAllCoffee", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Coffee> readAllCoffee() {
-        return coffeeService.readAllCoffee();
+    @GetMapping
+    public ResponseEntity<List<Coffee>> readAllCoffee() {
+        List<Coffee> coffees = coffeeService.readAllCoffee();
+        return new ResponseEntity<>(coffees, HttpStatus.OK);
     }
 }

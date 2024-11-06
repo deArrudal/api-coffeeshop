@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.api_coffeeshop.exception.CoffeeNotFoundException;
 import com.example.api_coffeeshop.model.Coffee;
 import com.example.api_coffeeshop.repository.CoffeeRepository;
 
@@ -17,29 +18,29 @@ public class CoffeeService {
     private ItemService itemService;
 
     public Coffee createCoffee(Coffee coffee) {
-        Coffee newCoffee = new Coffee();
-        newCoffee.setName(coffee.getName());
-        newCoffee.setPrice(coffee.getPrice());
-        return coffeeRepository.save(newCoffee);
+        return coffeeRepository.save(coffee);
     }
 
     public Coffee readCoffee(Long id) {
-        return coffeeRepository.findById(id).orElseThrow();
+        return coffeeRepository.findById(id)
+                .orElseThrow(() -> new CoffeeNotFoundException(id));
     }
 
-    public Coffee updateCoffee(Coffee coffee) {
-        Coffee newCoffee = coffeeRepository.findById(coffee.getId()).orElseThrow();
-        newCoffee.setName(coffee.getName());
-        newCoffee.setPrice(coffee.getPrice());
-        return coffeeRepository.save(newCoffee);
+    public Coffee updateCoffee(Long id, Coffee coffee) {
+        if (!coffeeRepository.findById(id).isPresent()) {
+            throw new CoffeeNotFoundException(id);
+        }
+        coffee.setId(id);
+        return coffeeRepository.save(coffee);
     }
 
-    public Coffee deleteCoffee(Long id) {
-        Coffee newCoffee = coffeeRepository.findById(id).orElseThrow();
+    public void deleteCoffee(Long id) {
+        if (!coffeeRepository.findById(id).isPresent()) {
+            throw new CoffeeNotFoundException(id);
+        }
         // Find all items associated with this coffee and remove
-        itemService.deleteAllItemByCoffeeId(id);;
-        coffeeRepository.delete(newCoffee);
-        return newCoffee;
+        itemService.deleteAllItemByCoffeeId(id);
+        coffeeRepository.deleteById(id);
     }
 
     public List<Coffee> readAllCoffee() {

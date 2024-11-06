@@ -13,5 +13,4 @@ public interface ItemRepository extends JpaRepository<Item, ItemId> {
     List<Item> findByCustomerOrderId(Long customerOrderId);
 
     List<Item> findByCoffeeId(Long coffeeId);
-
 }
