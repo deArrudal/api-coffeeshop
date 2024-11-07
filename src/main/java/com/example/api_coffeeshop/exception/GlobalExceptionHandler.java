@@ -29,6 +29,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ItemExistsException.class)
+    public ResponseEntity<ErrorResponse> handleItemExists(ItemExistsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Item Already Exists", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
         List<String> errorMessages = ex.getBindingResult().getFieldErrors().stream()

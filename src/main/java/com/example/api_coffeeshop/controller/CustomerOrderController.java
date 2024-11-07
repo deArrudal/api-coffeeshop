@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.api_coffeeshop.dto.CustomerOrderDTO;
 import com.example.api_coffeeshop.model.CustomerOrder;
 import com.example.api_coffeeshop.service.CustomerOrderService;
 
@@ -41,9 +42,9 @@ public class CustomerOrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerOrder> readCustomerOrder(@PathVariable("id") Long id) {
-        CustomerOrder readCustomerOrder = customerOrderService.readCustomerOrder(id);
-        return new ResponseEntity<>(readCustomerOrder, HttpStatus.OK);
+    public ResponseEntity<CustomerOrderDTO> readCustomerOrder(@PathVariable("id") Long id) {
+        CustomerOrderDTO readCustomerOrderDTO = customerOrderService.readCustomerOrder(id);
+        return new ResponseEntity<>(readCustomerOrderDTO, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

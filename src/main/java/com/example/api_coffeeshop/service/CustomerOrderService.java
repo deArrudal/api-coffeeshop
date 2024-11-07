@@ -1,10 +1,14 @@
 package com.example.api_coffeeshop.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.api_coffeeshop.dto.CustomerOrderDTO;
+import com.example.api_coffeeshop.dto.ItemDTO;
 import com.example.api_coffeeshop.exception.CustomerOrderNotFoundException;
 import com.example.api_coffeeshop.model.CustomerOrder;
 import com.example.api_coffeeshop.repository.CustomerOrderRepository;
@@ -21,11 +25,26 @@ public class CustomerOrderService {
         return customerOrderRepository.save(customerOrder);
     }
 
-    // TODO: recover items related to that order
-    // TODO: call procedure to compute total
-    public CustomerOrder readCustomerOrder(Long id) {
-        return customerOrderRepository.findById(id)
+    @Transactional
+    public CustomerOrderDTO readCustomerOrder(Long id) {
+        CustomerOrder readCustomerOrder = customerOrderRepository.findById(id)
                 .orElseThrow(() -> new CustomerOrderNotFoundException(id));
+        return getCustomerDTO(readCustomerOrder);
+    }
+
+    
+    private CustomerOrderDTO getCustomerDTO(CustomerOrder customerOrder) {
+        List<Object[]> items = customerOrderRepository.findItemByCustomerOrder(customerOrder.getId());
+        List<ItemDTO> itemsDTO = items.stream()
+                .map(row -> new ItemDTO(
+                        (String) row[0],
+                        (Double) row[1],
+                        (Double) row[2]))
+                .collect(Collectors.toList());
+        Double total = itemsDTO.stream()
+                .mapToDouble(item -> item.getQuantity() * item.getCoffeePrice())
+                .sum();
+        return new CustomerOrderDTO(customerOrder.getCustomerName(), itemsDTO, total);
     }
 
     public CustomerOrder updateCustomerOrder(Long id, CustomerOrder customerOrder) {

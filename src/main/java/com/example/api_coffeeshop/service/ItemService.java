@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.api_coffeeshop.exception.CoffeeNotFoundException;
 import com.example.api_coffeeshop.exception.CustomerOrderNotFoundException;
+import com.example.api_coffeeshop.exception.ItemExistsException;
 import com.example.api_coffeeshop.exception.ItemNotFoundException;
 import com.example.api_coffeeshop.model.Coffee;
 import com.example.api_coffeeshop.model.CustomerOrder;
@@ -28,13 +29,15 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    // TODO: fix to prevent existing items from being updated 
     public Item createItem(Item item) {
         CustomerOrder customerOrder = customerOrderRepository.findById(item.getCustomerOrder().getId())
                 .orElseThrow(() -> new CustomerOrderNotFoundException(item.getCustomerOrder().getId()));
         Coffee coffee = coffeeRepository.findById(item.getCoffee().getId())
                 .orElseThrow(() -> new CoffeeNotFoundException(item.getCoffee().getId()));
         ItemId itemId = new ItemId(customerOrder.getId(), coffee.getId());
+        if(itemRepository.findById(itemId).isPresent()) {
+            throw new ItemExistsException(itemId);  
+        }
         item.setId(itemId);
         item.setCustomerOrder(customerOrder);
         item.setCoffee(coffee);
