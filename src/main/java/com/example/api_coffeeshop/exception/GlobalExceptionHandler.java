@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ItemExistsException.class)
     public ResponseEntity<ErrorResponse> handleItemExists(ItemExistsException ex) {
         ErrorResponse errorResponse = new ErrorResponse("Item Already Exists", ex.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

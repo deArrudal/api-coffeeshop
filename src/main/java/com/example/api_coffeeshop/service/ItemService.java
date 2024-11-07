@@ -17,6 +17,8 @@ import com.example.api_coffeeshop.repository.CoffeeRepository;
 import com.example.api_coffeeshop.repository.CustomerOrderRepository;
 import com.example.api_coffeeshop.repository.ItemRepository;
 
+import jakarta.transaction.Transactional;
+
 // TODO: create functions to add/remove x quantities from item
 @Service
 public class ItemService {
@@ -29,6 +31,7 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Transactional
     public Item createItem(Item item) {
         CustomerOrder customerOrder = customerOrderRepository.findById(item.getCustomerOrder().getId())
                 .orElseThrow(() -> new CustomerOrderNotFoundException(item.getCustomerOrder().getId()));
@@ -50,6 +53,7 @@ public class ItemService {
                 .orElseThrow(() -> new ItemNotFoundException(itemId));
     }
 
+    @Transactional
     public Item updateItem(Long customerOrderId, Long coffeeId, Item item) {
         CustomerOrder customerOrder = customerOrderRepository.findById(customerOrderId)
                 .orElseThrow(() -> new CustomerOrderNotFoundException(customerOrderId));
@@ -65,6 +69,7 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
+    @Transactional
     public void deleteItem(Long customerOrderId, Long coffeeId) {
         ItemId itemId = new ItemId(customerOrderId, coffeeId);
         if (!itemRepository.findById(itemId).isPresent()) {
@@ -77,11 +82,13 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
+    @Transactional
     public void deleteAllItemByCustomerOrderId(Long customerOrderId) {
         List<Item> items = itemRepository.findByCustomerOrderId(customerOrderId);
         itemRepository.deleteAll(items);
     }
 
+    @Transactional
     public void deleteAllItemByCoffeeId(Long coffeeId) {
         List<Item> items = itemRepository.findByCoffeeId(coffeeId);
         itemRepository.deleteAll(items);
