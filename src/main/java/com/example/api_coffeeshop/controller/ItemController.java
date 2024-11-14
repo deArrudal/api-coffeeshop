@@ -13,6 +13,7 @@ import com.example.api_coffeeshop.service.ItemService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,8 @@ PUT /items/{id}: Update a item by its ID.
 DELETE /items/{id}: Delete a item by its ID.
  */
 
-@RestController
+@CrossOrigin("http://localhost:4200")
+ @RestController
 @RequestMapping("/items")
 public class ItemController {
     @Autowired

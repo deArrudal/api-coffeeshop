@@ -7,6 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class ItemDTO {
     private String coffeeName;
+
     private Double coffeePrice;
+
     private Double quantity;
 }

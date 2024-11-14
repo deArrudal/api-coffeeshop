@@ -9,8 +9,6 @@ import com.example.api_coffeeshop.exception.CoffeeNotFoundException;
 import com.example.api_coffeeshop.model.Coffee;
 import com.example.api_coffeeshop.repository.CoffeeRepository;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class CoffeeService {
     @Autowired
@@ -19,7 +17,6 @@ public class CoffeeService {
     @Autowired
     private ItemService itemService;
 
-    @Transactional
     public Coffee createCoffee(Coffee coffee) {
         return coffeeRepository.save(coffee);
     }
@@ -29,7 +26,6 @@ public class CoffeeService {
                 .orElseThrow(() -> new CoffeeNotFoundException(id));
     }
 
-    @Transactional
     public Coffee updateCoffee(Long id, Coffee coffee) {
         if (!coffeeRepository.findById(id).isPresent()) {
             throw new CoffeeNotFoundException(id);
@@ -38,7 +34,6 @@ public class CoffeeService {
         return coffeeRepository.save(coffee);
     }
 
-    @Transactional
     public void deleteCoffee(Long id) {
         if (!coffeeRepository.findById(id).isPresent()) {
             throw new CoffeeNotFoundException(id);

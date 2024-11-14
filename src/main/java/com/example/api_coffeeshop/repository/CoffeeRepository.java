@@ -7,4 +7,5 @@ import com.example.api_coffeeshop.model.Coffee;
 
 @Repository
 public interface CoffeeRepository extends JpaRepository<Coffee, Long> {
+    boolean existsByName(String name);
 }
