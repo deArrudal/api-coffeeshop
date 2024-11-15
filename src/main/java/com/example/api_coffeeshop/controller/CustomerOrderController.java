@@ -29,7 +29,7 @@ PUT /customerOrders/{id}: Update a customer order by its ID.
 DELETE /customerOrders/{id}: Delete a customer Order by its ID.
  */
 
- @CrossOrigin("http://localhost:4200")
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/customerOrders")
 public class CustomerOrderController {

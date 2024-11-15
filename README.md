@@ -4,7 +4,7 @@ This is a Coffee Shop application built using Spring Boot and MySQL. It includes
 
 ## Diagram
 
-[ER diagram](/src/main/resources/assets/er_diagram.png)
+![ER diagram](./src/main/resources/assets/er_diagram.png)
 
 ## Prerequisites
 

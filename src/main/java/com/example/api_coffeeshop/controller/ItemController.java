@@ -30,7 +30,7 @@ DELETE /items/{id}: Delete a item by its ID.
  */
 
 @CrossOrigin("http://localhost:4200")
- @RestController
+@RestController
 @RequestMapping("/items")
 public class ItemController {
     @Autowired
