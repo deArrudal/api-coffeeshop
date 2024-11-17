@@ -1,7 +1,8 @@
 DELIMITER $$
 CREATE PROCEDURE findItemByCustomerOrderId(IN customerOrderId BIGINT)
 BEGIN
-    SELECT 
+    SELECT
+    	c.id,
         c.name, 
         c.price, 
         i.quantity 

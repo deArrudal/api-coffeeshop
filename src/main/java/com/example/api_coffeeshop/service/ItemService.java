@@ -92,7 +92,7 @@ public class ItemService {
         List<Object[]> dataList = itemRepository.findItemByCustomerOrder(customerOrderId);
         List<ItemDTO> items = new ArrayList<>();
         for (Object[] row : dataList) {
-            items.add(new ItemDTO((String) row[0], (double) row[1], (double) row[2]));
+            items.add(new ItemDTO((long) row[0], (String) row[1], (double) row[2], (double) row[3]));
         }
         return items;
     }

@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ItemDTO {
+    private long coffeeId;
+
     private String coffeeName;
 
     private Double coffeePrice;
